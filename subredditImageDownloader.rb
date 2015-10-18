@@ -17,7 +17,7 @@ posts = client.links subreddit, :limit => '25'
 posts.each.with_index(0) do |r, i|
   if r.image_link?
     puts "Downloading #{i}"
-    download_imgur r.url, "#{subreddit}#{i}"
+    download_imgur r.url, "#{subreddit}#{i} #{Time.now.strftime("%d-%m-%Y")}"
     #downloads each file and names it after the subreddit
   end
   sleep(2)
