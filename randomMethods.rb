@@ -72,3 +72,55 @@ def getNumberRange(first, last)
     end
     return answer
 end
+
+# Create a function that takes an input String and returns a String, where all the uppercase words of the input String are in front and all the lowercase words at the end.
+#
+# If a word starts with a number or special character, skip the word and leave it out of the result.
+#
+# Input String will not be empty.
+#
+# For an input String: "hey You, Sort me Already!" the function should return: "You, Sort Already! hey me"
+
+def capitals_first(string)
+	caps = []
+  lows = []
+  string.split(' ').each do |word|
+    if word.chr.match(/[a-zA-Z]/)
+      if word.match(/[A-Z]/,0)
+        caps << word
+      else
+        lows << word
+      end
+    else
+    end
+  end
+  result = caps << lows
+  result.join(" ")
+end
+
+
+# The word i18n is a common abbreviation of internationalization the developer community use instead of typing the whole word and trying to spell it correctly. Similarly, a11y is an abbreviation of accessibility.
+#
+# Write a function that takes a string and turns any and all words within that string of length 4 or greater into an abbreviation following the same rules.
+#
+# Notes:
+#
+# A "word" is a sequence of alphabetical characters. By this definition, any other character like a space or hyphen (eg. "elephant-ride") will split up a series of letters into two words (eg. "elephant" and "ride").
+# The abbreviated version of the word should have the first letter, then the number of removed characters, then the last letter (eg. "e6t-r2e").
+
+class Abbreviator
+
+  def self.abbreviate(string)
+    result = ''
+    string.split(/(\W)/).each do |word|
+      if word.length < 4
+        result += word
+      else
+        result += word[0]
+        result += (word.length-2).to_s
+        result += word[-1]
+      end
+    end
+    result
+  end
+end
