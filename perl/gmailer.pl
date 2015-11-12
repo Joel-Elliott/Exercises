@@ -11,6 +11,6 @@ my $mail=Email::Send::SMTP::Gmail->new( -smtp=>'smtp.gmail.com',
                                                  -port=>587);
 
 say "log in successful!";
-$mail->send(-to=>'username@gmail.com', -subject=>'This is a test!', -body=>'This email was sent through a Perl script',);
+$mail->send(-to=>'username@gmail.com', -subject=>'This is a test!', -body=>'This email was sent through a Perl script', -attachments=>'example.txt',);
 
 $mail->bye;
