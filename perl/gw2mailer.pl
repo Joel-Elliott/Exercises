@@ -29,15 +29,19 @@ my $characterAgeFormatted .= sprintf ("%02dd:%02dh:%02dm:%02ds\n",$days,(gmtime(
 
 #open the file and store the contents in a variable. the contents are the time from the last time the script was ran.
 my $filename = 'timePlayed.txt';
-
 open(my $fh, '<:encoding(UTF-8)', $filename) or die "Could not open file '$filename' $!";
-my $previousTime = <$fh>;
+  my $previousTime = <$fh>;
+  my $previousLocalTime = <$fh>;
 close $fh;
 #calculate the difference between the time it was ran now and previously
 my $timeDifference = $characterAgeSeconds - $previousTime;
-
+my $timeDifferenceFormatted .= sprintf ("%02dh:%02dm:%02ds\n",(gmtime($timeDifference))[2,1,0]); #formats the time difference in a dd:hh:mm:ss format
+#save the current time played, previous time played, and timestamp in the file
+my $localTime = localtime;
 open($fh, '>:encoding(UTF-8)', $filename) or die "Could not open file '$filename' $!";
-print $fh "$characterAgeSeconds";
+  print $fh "$characterAgeSeconds\n";
+  print $fh "$localTime\n";
+  print $fh "$previousTime\n";
 close $fh;
 
 #build the email object & login to the gmail smtp server through TLS required port 587
@@ -46,6 +50,6 @@ my $mail=Email::Send::SMTP::Gmail->new(-smtp=>'smtp.gmail.com',
                                        -pass=>"$password",
                                        -port=>587);
 #send the email to self
-$mail->send(-to=>"$username".'@gmail.com', -subject=>'GW2 Character Age !', -body=>"You have played this character for $characterAgeFormatted total.\nYou have played for $timeDifference since the last time this script was ran.\n",);
+$mail->send(-to=>"$username".'@gmail.com', -subject=>'GW2 Character Age !', -body=>"You have played this character for $characterAgeFormatted total.\nYou have played for $timeDifferenceFormatted seconds since the last time this script was last ran at $previousLocalTime\n",);
 
 $mail->bye;
