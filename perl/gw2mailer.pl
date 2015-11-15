@@ -50,6 +50,6 @@ my $mail=Email::Send::SMTP::Gmail->new(-smtp=>'smtp.gmail.com',
                                        -pass=>"$password",
                                        -port=>587);
 #send the email to self
-$mail->send(-to=>"$username".'@gmail.com', -subject=>'GW2 Character Age !', -body=>"You have played this character for $characterAgeFormatted total.\nYou have played for $timeDifferenceFormatted seconds since the last time this script was last ran at $previousLocalTime\n",);
+$mail->send(-to=>"$username".'@gmail.com', -subject=>'GW2 Character Age !', -body=>"You have played this character for $characterAgeFormatted total.\nYou have played for $timeDifferenceFormatted since the last time this script was last ran at $previousLocalTime\n",);
 
 $mail->bye;
