@@ -16,8 +16,8 @@ my $api = $ENV{'GW2APIKEY'};  #TODO: Something if undef
 my $url = "https://api.guildwars2.com/v2/";
 my $api_key = "?access_token=$api";
 
-my $listingsJSON = get ($url . "/commerce/listings" . $api_key);
-die unless defined $listingsJSON;
-my %listings = %{decode_json($listingsJSON)};
+my $transactionsJSON = get ($url . "/commerce/transactions/current/sells" . $api_key);
+die unless defined $transactionsJSON;
+my $transactions = decode_json($transactionsJSON);
 
-print Dumper \%listings;
+print Dumper \$transactions;
