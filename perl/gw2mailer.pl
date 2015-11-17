@@ -8,9 +8,11 @@ use LWP::Simple;
 use JSON::MaybeXS ':all';
 #use Data::Dumper;
 
-#get username and password from command line #TODO: This could be improved
-my ($username, $password) = @ARGV;
-my $api = 'INSERT API KEY HERE';  #Paste your API key here.  TODO: Add a prompt if no key provided by user
+#get username, password & api key from environmental variables
+my $username = $ENV{'GU'};
+my $password = $ENV{'GP'};
+my $api = $ENV{'GW2APIKEY'};  #TODO: Something if undef
+
 my $url = "https://api.guildwars2.com/v2/";
 my $api_key = "?access_token=$api";
 
