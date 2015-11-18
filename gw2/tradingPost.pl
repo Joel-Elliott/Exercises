@@ -18,6 +18,14 @@ my $api_key = "?access_token=$api";
 
 my $transactionsJSON = get ($url . "/commerce/transactions/current/sells" . $api_key);
 die unless defined $transactionsJSON;
-my $transactions = decode_json($transactionsJSON);
+my @transactions = @{decode_json($transactionsJSON)};
 
-print Dumper \$transactions;
+#print Dumper @transactions;
+#place all item_ids from transactions in a list
+my @itemIds;
+my $numTransactions = @transactions-1;
+foreach my $t (0..$numTransactions) {
+  push @itemIds, $transactions[$t]{item_id};
+}
+
+print Dumper @itemIds;
